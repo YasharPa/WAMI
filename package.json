@@ -1,0 +1,14 @@
+{
+  "name": "wami",
+  "version": "1.0.0",
+  "description": "choose a location and blog it.",
+  "main": "controller.js",
+  "scripts": {
+    "test": "run start"
+  },
+  "author": "Yashar Pashaiy",
+  "license": "ISC",
+  "dependencies": {
+    "leaflet": "^1.9.3"
+  }
+}

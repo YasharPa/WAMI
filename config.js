@@ -1,1 +1,1 @@
-export const ZOOMLEVEL = 13;
+export const ZOOMLEVEL = 16;

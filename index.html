@@ -38,19 +38,44 @@
   </head>
   <body>
     <div class="sidebar">
-      <img src="upadted-logo.png" class="logo" alt="Logo">
-      <ul>
-        
+      <img src="upadted-logo.png" class="logo" alt="Logo" />
+      <ul class="activities">
+        <!-- <form class="form hidden"> -->
+        <form class="form hidden">
+          <div class="form__row">
+            <label class="form__label">Activity:</label>
+            <select class="form__input form__input--type">
+              <option value="Workout">Workout</option>
+              <option value="resturant">Resturant</option>
+              <option value="hotel">Hotel</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label class="form__label form__input--rating">Rating:</label>
+            <div class="rating">
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label for="star5">&#9734;</label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label for="star4">&#9734;</label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label for="star3">&#9734;</label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label for="star2">&#9734;</label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label for="star1">&#9734;</label>
+            </div>
+          </div>
+          <div class="form__row">
+            <label class="form__label">Review:</label>
+            <input
+              class="form__input--review"
+              type="text"
+              placeholder="write your review"
+            />
+          </div>
+        </form>
       </ul>
-      <form class="form hidden">
-        <div class="form__row">
-          <label class="form__label">Your Activity</label>
-          <select class="form__input form__input--type">
-            <option value="sport">Sport</option>
-            <option value="resturant">Resturant</option>
-            <option value="hotel">Hotel</option>
     </div>
-    
     <div id="map"></div>
   </body>
 </html>

@@ -75,7 +75,7 @@ a:visited {
 
 .activities {
   list-style: none;
-  height: 77px;
+  height: 100rem;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -142,7 +142,7 @@ a:visited {
   gap: 0.5rem 2.5rem;
 
   /* Match height and activity boxes */
-  height: 9.25rem;
+  height: 10rem;
   transition: all 0.5s, transform 1ms;
 }
 
@@ -155,7 +155,7 @@ a:visited {
 }
 
 .form__row {
-  display: block;
+  display: flex;
   align-items: center;
   padding: initial;
   justify-content: center;

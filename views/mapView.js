@@ -1,5 +1,6 @@
 import { ZOOMLEVEL } from '../config.js';
 
+const inputTYpe = document.querySelectorAll('form__input--type');
 const form = document.querySelector('.form');
 let inputReview = document.querySelector('.form__input--review');
 let starRating = document.querySelectorAll('.rating input');
@@ -26,34 +27,35 @@ export function showMap() {
 
       map.on('click', mapE => {
         mapEvent = mapE;
-        console.log(mapE);
         form.classList.remove('hidden');
         inputReview.focus();
+        console.log(mapE);
       });
     },
     function (error) {
       console.error(error);
     }
   );
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const { lat, lng } = mapEvent.latlng;
+    L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'running-popup',
+        })
+      )
+      .setPopupContent(`Workout`)
+      .openPopup();
+    console.log(inputReview.value);
+    inputReview.value = '';
+    starRating.forEach(star => (star.value = ''));
+    console.log(inputReview.value);
+  });
 }
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  inputReview.value = '';
-  starRating.forEach(star => (star.value = ''));
-
-  const { lat, lng } = mapEvent.latlng;
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxWidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        className: 'running-popup',
-      })
-    )
-    .setPopupContent('your review')
-    .openPopup();
-});

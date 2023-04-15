@@ -2,7 +2,7 @@
   "name": "wami",
   "version": "1.0.0",
   "description": "choose a location and blog it.",
-  "main": "controller.js",
+  "main": "App.js",
   "scripts": {
     "test": "run start"
   },

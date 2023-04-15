@@ -98,7 +98,7 @@ a:visited {
 .workout--running {
   border-left: 5px solid var(--color-brand--2);
 }
-.workout--cycling {
+.workout--restaurant {
   border-left: 5px solid var(--color-brand--1);
 }
 
@@ -236,7 +236,7 @@ a:visited {
 .running-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--2);
 }
-.cycling-popup .leaflet-popup-content-wrapper {
+.restaurant-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
 

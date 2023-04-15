@@ -1,6 +1,8 @@
 import { ZOOMLEVEL } from '../config.js';
+import { Workout } from './classes/workout.js';
+import { Restaurant } from './classes/restaurant.js';
 
-const inputTYpe = document.querySelectorAll('form__input--type');
+const inputType = document.querySelectorAll('form__input--type');
 const form = document.querySelector('.form');
 let inputReview = document.querySelector('.form__input--review');
 let inputStarRating = document.querySelector('.rating');
@@ -11,6 +13,7 @@ export class App {
   #map;
   #mapEvent;
   #ratingScore;
+  #activities = [];
 
   constructor() {
     this._getPosition();
@@ -54,9 +57,38 @@ export class App {
   }
   _newActivity(e) {
     e.preventDefault();
-    console.log(this);
+
     const { lat, lng } = this.#mapEvent.latlng;
-    L.marker([lat, lng])
+    const type = inputType.value;
+    let workout, restaurant;
+
+    if (type === 'workout') {
+      if (inputReview.value === '') return alert('Please enter your review!');
+    }
+    workout = new Workout(
+      [lat, lng],
+      'great workout place, i will come back again!',
+      5
+    );
+    this.#activities.push(workout);
+    console.log(workout);
+
+    if (type === 'Restaurant') {
+      if (inputReview.value === '') return alert('Please enter your review!');
+    }
+    restaurant = new Restaurant(
+      [lat, lng],
+      'great workout place, i will come back again!',
+      5
+    );
+    this.#activities.push(restaurant);
+
+    this.renderActivityMarker(restaurant);
+
+    inputReview.value = '';
+  }
+  renderActivityMarker(activity) {
+    L.marker(activity.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
@@ -64,14 +96,13 @@ export class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          className: 'running-popup',
+          className: `${activity.type}-popup`,
         })
       )
-      .setPopupContent(`Workout, ${this.#ratingScore} stars`)
+      .setPopupContent(
+        `${activity.type}, ${this.#ratingScore ? this.#ratingScore : 0} stars`
+      )
       .openPopup();
-    console.log(inputReview.value);
-    console.log(this.#ratingScore);
-    inputReview.value = '';
   }
 }
 

@@ -1,7 +1,7 @@
 import { Activity } from './activity.js';
 
-export class Workout extends Activity {
-  type = 'workout';
+export class Restaurant extends Activity {
+  type = 'restaurant';
   constructor(coords, review, rating) {
     super(coords, review, rating);
   }

@@ -47,7 +47,6 @@ body {
   overscroll-behavior-y: none;
 
   background-color: #fff;
-  padding: 2.5rem;
 
   display: flex;
 }
@@ -84,7 +83,7 @@ a:visited {
   width: 0;
 }
 
-.workout {
+.activity {
   background-color: var(--color-dark--2);
   border-radius: 5px;
   padding: 1.5rem 2.25rem;
@@ -95,36 +94,36 @@ a:visited {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
 }
-.workout--running {
+.activity--running {
   border-left: 5px solid var(--color-brand--2);
 }
-.workout--restaurant {
+.activity--restaurant {
   border-left: 5px solid var(--color-brand--1);
 }
 
-.workout__title {
+.activity__title {
   font-size: 1.7rem;
   font-weight: 600;
   grid-column: 1 / -1;
 }
 
-.workout__details {
+.activity__details {
   display: flex;
   align-items: baseline;
 }
 
-.workout__icon {
+.activity__icon {
   font-size: 1.8rem;
   margin-right: 0.2rem;
   height: 0.28rem;
 }
 
-.workout__value {
+.activity__value {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
 
-.workout__unit {
+.activity__unit {
   font-size: 1.1rem;
   color: var(--color-light--1);
   text-transform: uppercase;

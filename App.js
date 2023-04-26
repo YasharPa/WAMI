@@ -1,7 +1,7 @@
 import { ZOOMLEVEL } from '../config.js';
 import { Workout } from './classes/workout.js';
 import { Restaurant } from './classes/restaurant.js';
-
+import { Hotel } from './classes/hotel.js';
 const inputType = document.querySelector('.form__input--type');
 const form = document.querySelector('.form');
 const activitiesConteiner = document.querySelector('.activities');
@@ -19,6 +19,7 @@ export class App {
   constructor() {
     this._getPosition();
 
+    this._getLocalStorage();
     form.addEventListener('submit', this._newActivity.bind(this));
     inputStarRating.addEventListener(
       'change',
@@ -51,12 +52,17 @@ export class App {
     }).addTo(this.#map);
 
     this.#map.on('click', this._showForm.bind(this));
+
+    this.#activities.forEach(activity => {
+      this._renderActivity(activity);
+      this._renderActivityMarker(activity);
+      console.log(activity);
+    });
   }
   _showForm(mapE) {
     this.#mapEvent = mapE;
     form.classList.remove('hidden');
     inputReview.focus();
-    console.log(mapE);
   }
   _hideFrom() {
     inputReview.value = '';
@@ -73,28 +79,33 @@ export class App {
 
     if (type === 'workout') {
       if (inputReview.value === '') return alert('Please enter your review!');
+
+      activity = new Workout(
+        [lat, lng],
+        inputReview.value,
+        inputStarRating.value
+      );
     }
-    activity = new Workout(
-      [lat, lng],
-      'great workout place, i will come back again!',
-      5
-    );
 
     if (type === 'restaurant') {
       if (inputReview.value === '') return alert('Please enter your review!');
-      console.log(restaurant);
+
+      activity = new Restaurant([lat, lng], inputReview, inputStarRating);
     }
-    activity = new Restaurant(
-      [lat, lng],
-      'great workout place, i will come back again!',
-      3
-    );
+
+    if (type === 'hotel') {
+      if (inputReview.value === '') return alert('Please enter your review!');
+
+      activity = new Hotel([lat, lng], inputReview, inputStarRating);
+    }
 
     this.#activities.push(activity);
     this._renderActivityMarker(activity);
     this._renderActivity(activity);
     this._hideFrom();
+    this._setLocalStorage();
   }
+
   _renderActivityMarker(activity) {
     L.marker(activity.coords)
       .addTo(this.#map)
@@ -117,15 +128,17 @@ export class App {
     <li class="activity activity--${activity.type}" data-id="${activity.id}">
         <h2 class="activity__title">${activity.description}</h2>
         <div class="activity__details">
-        <span class="activity__icon">${
-          activity.type === 'workout' ? '🏋️‍♂️' : '⭐'
+        <span class="activity__icon">${activity.symbol}</span>
+        <span class="activity__value">${
+          activity.ratingScore === undefined ? '' : activity.ratingScore
         }</span>
-        <span class="activity__value">${activity.rating}</span>
-        <span class="activity__unit">stars</span>
+        <span class="activity__unit">${activity.type}</span>
       </div>
       <div class="activity__details">
         <span class="activity__icon">⏱</span>
-        <span class="activity__value">${activity.date.getHours()}:${activity.date.getMinutes()}</span>
+        <span class="activity__value">${new Date(activity.date)
+          .toLocaleTimeString()
+          .slice(0, 5)}</span>
         <span class="activity__unit">o'clock</span>
       </div>
     `;
@@ -135,20 +148,29 @@ export class App {
 
   _moveToPopup(e) {
     const activityElement = e.target.closest('.activity');
-    console.log(activityElement);
 
     if (!activityElement) return;
 
     const activity = this.#activities.find(
       active => active.id === activityElement.dataset.id
     );
-    console.log(this.#activities);
+
     this.#map.setView(activity.coords, this.ZOOMLEVEL, {
       animate: true,
       pan: {
         duration: 1,
       },
     });
+  }
+  _setLocalStorage() {
+    localStorage.setItem('activities', JSON.stringify(this.#activities));
+  }
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('activities'));
+
+    if (!data) return;
+
+    this.#activities = data;
   }
 }
 

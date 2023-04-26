@@ -1,8 +1,8 @@
 import { Activity } from './activity.js';
 
-export class Restaurant extends Activity {
-  type = 'restaurant';
-  symbol = '🍽️';
+export class Hotel extends Activity {
+  type = 'hotel';
+  symbol = '🏩';
 
   constructor(coords, review, rating) {
     super(coords, review, rating);

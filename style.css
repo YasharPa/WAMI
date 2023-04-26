@@ -19,7 +19,7 @@
 :root {
   --color-brand--1: #ffb545;
   --color-brand--2: #00c46a;
-
+  --color-brand--3: #6c00c4;
   --color-dark--1: #2d3439;
   --color-dark--2: #42484d;
   --color-light--1: #aaa;
@@ -59,7 +59,7 @@ a:visited {
 
 /* SIDEBAR */
 .sidebar {
-  flex-basis: 50rem;
+  flex-basis: 35rem;
   background-color: var(--color-dark--1);
   padding: 3rem 5rem 4rem 5rem;
   display: flex;
@@ -94,11 +94,15 @@ a:visited {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
 }
-.activity--running {
+.activity--workout {
   border-left: 5px solid var(--color-brand--2);
 }
 .activity--restaurant {
   border-left: 5px solid var(--color-brand--1);
+}
+
+.activity--hotel {
+  border-left: 5px solid var(--color-brand--3);
 }
 
 .activity__title {
@@ -232,13 +236,16 @@ a:visited {
   background-color: var(--color-dark--1);
 }
 
-.running-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid var(--color-brand--2);
-}
 .restaurant-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
+.workout-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--2);
+}
 
+.hotel-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--3);
+}
 .rating {
   display: flex;
   text-align: center;

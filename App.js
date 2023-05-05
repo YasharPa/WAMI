@@ -2,12 +2,14 @@ import { ZOOMLEVEL } from '../config.js';
 import { Workout } from './classes/workout.js';
 import { Restaurant } from './classes/restaurant.js';
 import { Hotel } from './classes/hotel.js';
+import { ModalView } from './modal/modalView.js';
+
 const inputType = document.querySelector('.form__input--type');
 const form = document.querySelector('.form');
 const activitiesConteiner = document.querySelector('.activities');
+const activitySelector = document.querySelector('.activity activity--');
 let inputReview = document.querySelector('.form__input--review');
 let inputStarRating = document.querySelector('.rating');
-
 let map, mapEvent, ratingScore;
 
 export class App {
@@ -15,18 +17,25 @@ export class App {
   #mapEvent;
   #ratingScore;
   #activities = [];
+  modalView = new ModalView();
+  modalControl = L.control();
 
   constructor() {
     this._getPosition();
-
     this._getLocalStorage();
+
     form.addEventListener('submit', this._newActivity.bind(this));
     inputStarRating.addEventListener(
       'change',
       this._updateRatingScore.bind(this)
     );
-    activitiesConteiner.addEventListener('click', this._moveToPopup.bind(this));
+    activitiesConteiner.addEventListener('click', e => {
+      this._moveToPopup(e);
+      this._renderModal(e);
+      this.modalView._addModal();
+    });
   }
+
   _updateRatingScore(e) {
     this.#ratingScore = e.target.value;
   }
@@ -38,6 +47,7 @@ export class App {
       }
     );
   }
+
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
@@ -56,6 +66,7 @@ export class App {
     this.#activities.forEach(activity => {
       this._renderActivity(activity);
       this._renderActivityMarker(activity);
+      this._renderModal(activity);
       console.log(activity);
     });
   }
@@ -125,7 +136,9 @@ export class App {
   }
   _renderActivity(activity) {
     const html = `
-    <li class="activity activity--${activity.type}" data-id="${activity.id}">
+        <li class="activity activity--${activity.type}" data-id="${
+      activity.id
+    }">
         <h2 class="activity__title">${activity.description}</h2>
         <div class="activity__details">
         <span class="activity__icon">${activity.symbol}</span>
@@ -133,15 +146,15 @@ export class App {
           activity.ratingScore === undefined ? '' : activity.ratingScore
         }</span>
         <span class="activity__unit">${activity.type}</span>
-      </div>
-      <div class="activity__details">
+        </div>
+        <div class="activity__details">
         <span class="activity__icon">⏱</span>
         <span class="activity__value">${new Date(activity.date)
           .toLocaleTimeString()
           .slice(0, 5)}</span>
-        <span class="activity__unit">o'clock</span>
-      </div>
-    `;
+          <span class="activity__unit">o'clock</span>
+          </div>
+          `;
 
     form.insertAdjacentHTML('afterend', html);
   }
@@ -171,6 +184,18 @@ export class App {
     if (!data) return;
 
     this.#activities = data;
+  }
+
+  _renderModal(activity) {
+    const html = `
+    <dialog data-modal class="display-modal">
+    <form>
+      <button formmethod="dialog" class="close-modal">&times;</button>
+      <h1 class="activity-name">${activity.type}</h1>
+      <p class="activity-review">${activity.inputReview}</p>
+    </form>
+  </dialog>
+`;
   }
 }
 

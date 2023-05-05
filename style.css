@@ -271,3 +271,35 @@ a:visited {
 .rating input:checked ~ label {
   color: #ffca08;
 }
+
+.hidden {
+  display: none;
+}
+
+.display-modal {
+  position: fixed;
+  top: 50%;
+  left: 65%;
+
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-color: var(--color-dark--2);
+  padding: 2rem;
+  border-radius: 5px;
+  border-color: #42484d;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.activity-name {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.activity-stars {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}

@@ -7,7 +7,6 @@ import { ModalView } from './modal/modalView.js';
 const inputType = document.querySelector('.form__input--type');
 const form = document.querySelector('.form');
 const activitiesConteiner = document.querySelector('.activities');
-const activitySelector = document.querySelector('.activity activity--');
 let inputReview = document.querySelector('.form__input--review');
 let inputStarRating = document.querySelector('.rating');
 let map, mapEvent, ratingScore;
@@ -18,7 +17,6 @@ export class App {
   #ratingScore;
   #activities = [];
   modalView = new ModalView();
-  modalControl = L.control();
 
   constructor() {
     this._getPosition();
@@ -31,8 +29,6 @@ export class App {
     );
     activitiesConteiner.addEventListener('click', e => {
       this._moveToPopup(e);
-      this._renderModal(e);
-      this.modalView._addModal();
     });
   }
 
@@ -66,21 +62,22 @@ export class App {
     this.#activities.forEach(activity => {
       this._renderActivity(activity);
       this._renderActivityMarker(activity);
-      this._renderModal(activity);
-      console.log(activity);
     });
   }
+
   _showForm(mapE) {
     this.#mapEvent = mapE;
     form.classList.remove('hidden');
     inputReview.focus();
   }
+
   _hideFrom() {
     inputReview.value = '';
     form.style.display = 'none';
     form.classList.add('hidden');
     setTimeout(() => (form.style.display = 'grid'), 1000);
   }
+
   _newActivity(e) {
     e.preventDefault();
 
@@ -174,6 +171,9 @@ export class App {
         duration: 1,
       },
     });
+    this.modalView._addModal();
+    this.modalView._renderModal(activity);
+    this.modalView._clearModal(this.modalView);
   }
   _setLocalStorage() {
     localStorage.setItem('activities', JSON.stringify(this.#activities));
@@ -184,18 +184,6 @@ export class App {
     if (!data) return;
 
     this.#activities = data;
-  }
-
-  _renderModal(activity) {
-    const html = `
-    <dialog data-modal class="display-modal">
-    <form>
-      <button formmethod="dialog" class="close-modal">&times;</button>
-      <h1 class="activity-name">${activity.type}</h1>
-      <p class="activity-review">${activity.inputReview}</p>
-    </form>
-  </dialog>
-`;
   }
 }
 

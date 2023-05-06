@@ -293,13 +293,21 @@ a:visited {
 }
 
 .activity-name {
+  display: flex;
   font-size: 3rem;
   font-weight: 600;
   color: #fff;
 }
 
-.activity-stars {
-  font-size: 1rem;
+.activity-date {
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+.activity-review {
+  display: flex;
+  font-size: 2rem;
   font-weight: 600;
   color: #fff;
 }

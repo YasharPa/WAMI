@@ -311,3 +311,8 @@ a:visited {
   font-weight: 600;
   color: #fff;
 }
+.close-modal {
+  color: #aaa;
+  font-size: 30px;
+  font-weight: bold;
+}

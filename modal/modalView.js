@@ -8,13 +8,22 @@ export class ModalView {
   }
 
   _renderModal(activity) {
+    const activityDate = new Date(activity.date);
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+
     console.log(activity);
     const modalHtml = `
     <form class="modal-form">
         <button formmethod="dialog" class="close-modal">&times;</button>
         <div class="modal-properties">
             <h1 class="activity-name">${activity.type}</h1>
-            <h2 class="activity-date">date: ${activity.date}</h2>
+            <h2 class="activity-date">date: ${formatter.format(
+              activityDate
+            )}</h2>
             <p class="activity-review">${activity.review}</p>
         </div>
     </form>

@@ -173,7 +173,6 @@ export class App {
     });
     this.modalView._addModal();
     this.modalView._renderModal(activity);
-    this.modalView._clearModal(this.modalView);
   }
   _setLocalStorage() {
     localStorage.setItem('activities', JSON.stringify(this.#activities));

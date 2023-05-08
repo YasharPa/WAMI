@@ -8,22 +8,27 @@ export class ModalView {
   }
 
   _renderModal(activity) {
+    console.log(activity);
     const modalHtml = `
     <form class="modal-form">
+        <button formmethod="dialog" class="close-modal">&times;</button>
         <div class="modal-properties">
-        <h1 class="activity-name">${activity.type}</h1>
-        <h2 class="activity-date">${activity.date}</h2>
-        <p class="activity-review">${activity.review}</p>
+            <h1 class="activity-name">${activity.type}</h1>
+            <h2 class="activity-date">date: ${activity.date}</h2>
+            <p class="activity-review">${activity.review}</p>
         </div>
     </form>
 `;
-    console.log(this.modalForm);
-    this.modalForm.insertAdjacentHTML('beforeend', modalHtml);
+    this.modalForm.innerHTML = modalHtml;
+    this._clearModal(modalHtml);
   }
 
   _clearModal(modal) {
     const modalProperties = document.querySelector('.modal-properties');
-    console.log(modalProperties.textContent);
-    modalProperties.textContent = '';
+    console.log(modalProperties.textContent.length);
+
+    if (this.modalForm.textContent) return;
+
+    modalProperties = '';
   }
 }
